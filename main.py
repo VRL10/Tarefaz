@@ -6,6 +6,7 @@ from datetime import datetime
 usuarios_comuns = []
 tarefas = []
 
+# Classe base das classes Usuario_comum e Usuario_adm
 class Usuario(ABC):
     def __init__(self, usuario, senha):
         self._usuario = usuario
@@ -23,6 +24,7 @@ class Usuario(ABC):
     def autenticar(self, usuario_digitado, senha_digitada):
         pass
 
+# Cadastra e Autentica os usuários comuns
 class Usuario_comum(Usuario):
     def __init__(self, usuario, senha):
         super().__init__(usuario, senha)
@@ -40,6 +42,7 @@ class Usuario_comum(Usuario):
             print('O acesso foi negado!')
             return False
 
+# Por enquanto, não irei fazer nada nessa classe, apenas direi se conseguiu ou não autenticar.(O usuário ADM foi colocado como um pré definido)
 class Usuario_adm(Usuario):
     def __init__(self, usuario='victor', senha='victor'):
         super().__init__(usuario, senha)
@@ -57,6 +60,7 @@ class Usuario_adm(Usuario):
             print('O acesso foi negado!')
             return False
 
+# Cadastra as tarefas para os respectivos usuários comuns e também as altera
 class Tarefas:
     importancias = ['Baixa', 'Normal', 'Alta', 'Urgente']
     prioridades = ['Baixa', 'Média', 'Alta']
@@ -136,6 +140,9 @@ class Tarefas:
         else:
             raise ValueError('Status inválido.')
 
+
+# Classe responsável por chamar as outras classes, quando precisar! Ela basicamente tem as funções compativeis com as opções do Menu.
+# Quando se escolhe uma opção faz as perguntas e chama as outras classes
 class Sistema:
     def __init__(self):
         self.admin = Usuario_adm()
